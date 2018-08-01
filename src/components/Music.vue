@@ -1,90 +1,55 @@
-<template>
-  <div class="hello">
-  <!-- Comment   
-    <ul class="nav">
-      <li>
-        <router-link v-bind:to="{name:'Search'}">Search</router-link>
-      </li>
-      <li>
-        <router-link v-bind:to="{name:'Results'}">Results</router-link>
-      </li>
-    </ul> -->
-    
-    <h1>iTunes Tracker</h1>
-    <h2>Find the music you desire!</h2>
-    
-    <form v-on:submit.prevent="Search">
-      <input type="text" v-model="term" placeholder="Keyword"><button type="submit">Submit</button>
-    </form>
-    
-    <div v-if="results" class="results">
-     <!--for later <router-link v-bind:to="{ name: 'Results' }">{{ results.answer }}</router-link> -->
-      <ul id="results">
-        <li v-for="result in results">
-          {{ result.trackName }}
-        </li>
-      </ul>
+<template>        
+ <div class="Music">
+
+    <h1>iTunes Music Finder</h1>
+    <h2></h2>
+<form v-on:submit.prevent="findmusic">
+      <input type="text" id="myInput" v-model="artist" placeholder="Search Favorite Artist.." title="Type in a name">
+ <p><input type="submit" value="Submit"></p>
+</form>
+
+
+<ul id="results">
+  <li v-bind="result in results">
+    <span><a v-bind:href="result.artworkUrl30">{{result.trackCensoredName}}</a></span>
+   <span><a v-bind:href="result.artistName">{{ result.artistName }}</a></span>
+   <span><a v-bind:href="result.releaseDate">{{ result.country }}</a></span>
+  </li>
+</ul>
     </div>
-
-
-    <ul v-else-if="errors.length > 0" class="errors">
-      <li v-for="error in errors">
-        {{ error.message }}
-      </li>
-    </ul>
-
-  </div>
-  
 </template>
-
 <script>
-import axios from 'axios';
+import axios from "axios";
 export default {
-  name: 'Music',
-  data () {
+  name: "Music",
+  data() {
     return {
-      prediction: null,
+      results: null,
       errors: [],
-      results: [],
-      term: ''
-    }
+      entity: "",
+      atribute: "",
+      artist: "",
+      msg: "Itunes Search"
+    };
   },
   methods: {
-    Search: function() {
-      axios.get("https://itunes.apple.com/search", {
-          params: { term: this.artist, limit: "10" }
-      })
-      .then( response => {
-        this.results = response.data.results;
-      })
-      .catch( error => {
-        this.errors.push(error);
-      }); 
-      
-      let term=this.term;
-      let self=this;
-    $.ajax({
-    url: "https://itunes.apple.com/search",
-    dataType: "jsonp",
-    data: {
-      term: term, limit:20
-     },
-     error: function(jqXHR, textStatus, message) {
-      console.log(message);
-     },
-     success: function(data, textStatus, jqXHR) {
-     console.log(data);
-     self.results = data.results;
-      }
-     });
+    findmusic: function() {
+      axios
+        .get("https://itunes.apple.com/search", {
+          params: { term: this.artist, limit: "25" }
+        })
+        .then(response => {
+          this.results = response.data.results;
+        })
+        .catch(error => {
+          this.errors.push(error);
+        });
     }
+  
   }
-}
+};
 </script> 
 
-
-
-<!-- Add "scoped" attribute to limit CSS to this component only -->
 <style scoped>
 h1,
 h2 {
