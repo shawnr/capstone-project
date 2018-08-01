@@ -2,7 +2,7 @@
  <div class="Music">
 
     <h1>iTunes Music Finder</h1>
-    <h2></h2>
+    
 <form v-on:submit.prevent="findmusic">
       <input type="text" id="myInput" v-model="artist" placeholder="Search Favorite Artist.." title="Type in a name">
  <p><input type="submit" value="Submit"></p>
@@ -10,10 +10,23 @@
 
 
 <ul id="results">
-  <li v-bind="result in results">
-    <span><a v-bind:href="result.artworkUrl30">{{result.trackCensoredName}}</a></span>
-   <span><a v-bind:href="result.artistName">{{ result.artistName }}</a></span>
-   <span><a v-bind:href="result.releaseDate">{{ result.country }}</a></span>
+  <li v-for="result in results">
+    <span><img v-bind:src="result.artworkUrl100"></span>
+    <div><span><a v-bind:href="result.trackViewUrl" target="_blank">{{result.trackCensoredName}}</a></span> -
+   <br><span><a v-bind:href="result.artistViewUrl" target="_blank">{{ result.artistName }}</a></span></div>
+ 
+ <!-- <div align="center" class="embed-responsive embed-responsive-16by9">
+    <video autoplay loop class="embed-responsive-item">
+        <source v-bind:src="result.prevuewUrl" type="video/mp4">
+    </video>
+</div> -->
+<div>
+<audio controls preload="none" style="width:480px;">
+ <source  v-bind:src="result.prevuewUrl" />
+ </audio>
+ </div>
+   
+   
   </li>
 </ul>
     </div>
@@ -24,7 +37,7 @@ export default {
   name: "Music",
   data() {
     return {
-      results: null,
+      results: [],
       errors: [],
       entity: "",
       atribute: "",
@@ -36,7 +49,7 @@ export default {
     findmusic: function() {
       axios
         .get("https://itunes.apple.com/search", {
-          params: { term: this.artist, limit: "25" }
+          params: { term: this.artist, limit: "15" }
         })
         .then(response => {
           this.results = response.data.results;

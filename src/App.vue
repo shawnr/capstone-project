@@ -11,9 +11,7 @@ import Music from './components/Music'
 
 export default {
   name: 'App',
-  components: {
-    Music
-  }
+ 
 }
 </script>
 
