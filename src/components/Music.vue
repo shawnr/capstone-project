@@ -15,14 +15,9 @@
     <div><span><a v-bind:href="result.trackViewUrl" target="_blank">{{result.trackCensoredName}}</a></span> -
    <br><span><a v-bind:href="result.artistViewUrl" target="_blank">{{ result.artistName }}</a></span></div>
  
- <!-- <div align="center" class="embed-responsive embed-responsive-16by9">
-    <video autoplay loop class="embed-responsive-item">
-        <source v-bind:src="result.prevuewUrl" type="video/mp4">
-    </video>
-</div> -->
 <div>
 <audio controls preload="none" style="width:480px;">
- <source  v-bind:src="result.prevuewUrl" />
+ <source  v-bind:src="result.previewUrl" />
  </audio>
  </div>
    
@@ -64,6 +59,7 @@ export default {
 </script> 
 
 <style scoped>
+
 h1,
 h2 {
   font-weight: normal;
