@@ -7,6 +7,12 @@
     margin-top: 60px;
   }
 
+  body {
+      background-image: url('itunes.png');
+      background-attachment:fixed;
+      background-repeat:no-repeat;
+      background-size: cover;
+  }
 
 .sidenav {
     height: 100%;
@@ -15,7 +21,7 @@
     z-index: 1;
     top: 0;
     left: 0;
-    background-color: #111;
+    background-color: #e9b2d9;
     overflow-x: hidden;
     transition: 0.5s;
     padding-top: 60px;

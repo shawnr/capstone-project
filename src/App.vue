@@ -7,12 +7,12 @@
 
 
 <script>
-import iTunes from './components/iTunes.vue'
-import axios from 'axios';
+import Music from './components/Music'
+
 export default {
   name: 'App',
   components: {
-    iTunes
+    Music
   }
 }
 </script>
