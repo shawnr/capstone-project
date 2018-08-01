@@ -1,5 +1,5 @@
 <template>        
- <div class="itunes">
+ <div class="iTunes">
 <h1>{{ msg }}</h1>
     <h1></h1>
     <h2></h2>
@@ -7,7 +7,7 @@
       <input type="text" id="myInput" v-model="artist" placeholder="Search Favorite Artist.." title="Type in a name">
  <p><input type="submit" value="Submit"></p>
 </form>
-<!-- <p>{{results}}</p> -->
+
 <ul id="results">
   <li v-bind="result in results">
     <span><a v-bind:href="result.artworkUrl30">{{result.trackCensoredName}}</a></span>
@@ -20,7 +20,7 @@
 <script>
 import axios from "axios";
 export default {
-  name: "Itunes",
+  name: "ITunes",
   data() {
     return {
       results: null,
@@ -28,14 +28,14 @@ export default {
       entity: "",
       atribute: "",
       artist: "",
-      msg: "Itunes Search"
+      msg: "iTunes Search"
     };
   },
   methods: {
     findmusic: function() {
       axios
         .get("https://itunes.apple.com/search", {
-          params: { term: this.artist, limit: "25" }
+          params: { term: this.artist, limit: "10" }
         })
         .then(response => {
           this.results = response.data.results;
@@ -48,6 +48,9 @@ export default {
   }
 };
 </script>
+
+
+
 <!-- Add "scoped" attribute to limit CSS to this component only -->
 <style scoped>
 h1,
